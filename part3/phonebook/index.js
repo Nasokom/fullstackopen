@@ -1,9 +1,16 @@
 const express = require('express')
+const morgan = require('morgan')
 const app = express()
+
+morgan.token('body', req => {
+  return JSON.stringify(req.body)
+})
+
 app.use(express.json())
+app.use(morgan(':method :url :status :res[content-length] - :response-time ms :body',{
+}))
 
-
-const persons = [
+let persons = [
     { 
       "id": "1",
       "name": "Arto Hellas", 
@@ -25,6 +32,16 @@ const persons = [
       "number": "39-23-6423122"
     }
 ]
+const requestLogger = (request, response, next) => {
+  console.log('Method:', request.method)
+  console.log('Path:  ', request.path)
+  console.log('Body:  ', request.body)
+  console.log('---')
+  next()
+}
+//app.use(requestLogger)
+
+
 
 app.get('/',(request,response)=>{
     response.send('Welcome to the server')
@@ -41,25 +58,25 @@ app.get('/api/persons/:id',(request,response)=>{
     console.log(id)
     const person = persons.find(p => Number(p.id) === id)
 
-    if(person){
-        response.json(person)
-    }else{
-        response.status(404).end()
+    if(!person){
+        return response.status(404).end()
     }
+    return response.json(person)
+    
 })
 
 app.delete('/api/persons/:id',(request,response)=>{
     const id = request.params.id
     if(!id){
-        response.status(400).send('id is missing').end()
+      return   response.status(400).send('id is missing').end()
     }
     const target = persons.find(person => Number(person.id) === Number(id))
 
     if(!target){
-        response.status(404).send(`No person with the id ${id}`).end()
+        return response.status(404).json({error:`No person with the id ${id}`}).end()
     }
 
-    persons.filter(person => Number(person.id) === Number(target.id) )
+    persons = persons.filter(person => Number(person.id) !== Number(target.id) )
 
     console.log(persons)
  
@@ -75,29 +92,29 @@ function generateId(){
 
 app.post('/api/persons',(request,response)=>{
     const body = request.body
-    console.log(body)
+    //console.log(body)
     const errors= {
                 body:{ error: 'no content send' },
                 missing:{ error: 'The name or number is missing' },
                 exist:{ error: 'The name already exists in the phonebook' }
                 }
     if(!body){
-        console.log(errors.body)
+      //  console.log(errors.body)
       return  response.status(400).json(errors.body).end()
     }
     
     if(!body.name || !body.number){
-        console.log(errors.missing)
+        //console.log(errors.missing)
        return response.status(400).json(errors.missing).end()
     }
 
     if(persons.find(person => person.name === body.name)){
-        console.log(errors.exist)
+        //console.log(errors.exist)
      return response.status(409).json(errors.exist).end()
     }  
         const newPerson = {id:generateId(),...body}
         persons.push(newPerson)
-        console.log(persons)
+        //console.log(persons)
         response.json(`${newPerson.name} successfully added to the phonebook`)
 })
 
@@ -109,6 +126,12 @@ app.get('/info',(request,response)=>{
     `
 )
 })
+
+const unknownEndpoint = (request, response) => {
+  response.status(404).send({ error: 'unknown endpoint' })
+}
+
+app.use(unknownEndpoint)
 
 const PORT = 3001
 
