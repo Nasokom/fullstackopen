@@ -32,7 +32,7 @@ app.get('/', (request, response) => {
 let count = 0
 
 app.get('/api/notes', (request, response) => {
-  coount += 1
+  count += 1
   console.log(`Notes getting pick ${count} times`)
   response.json(notes)
 })
