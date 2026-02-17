@@ -6,11 +6,21 @@ GET http://localhost:3001/api/persons/
 ###
 GET http://localhost:3001/info
 
-###
-GET http://localhost:3001/api/persons/2
+### 
+//Get person by ID 
+GET http://localhost:3001/api/persons/69945021aac7056c45414801
 
 ###
-DELETE http://localhost:3001/api/persons/84
+//GET person unexisting valid id
+GET http://localhost:3001/api/persons/6994501499e2a40e2743d990
+
+
+###
+//GET person malformed id
+GET http://localhost:3001/api/persons/54
+
+###
+DELETE http://localhost:3001/api/persons/6994501499e2a40e2743d990
 
 ###
 POST http://localhost:3001/api/persons HTTP/1.1
@@ -19,6 +29,16 @@ content-type: application/json
 {
     "name":"Mike",
     "number":"4242424242"
+}
+
+
+###
+PUT  http://localhost:3001/api/persons/69947036532a6e0c23ced00c HTTP/1.1
+content-type: application/json
+
+{
+    "name":"Mike",
+    "number":"42424242"
 }
 
 ###
