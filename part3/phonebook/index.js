@@ -60,7 +60,7 @@ app.delete('/api/persons/:id',(request,response,next)=>{
 
 })
 
-app.post('/api/persons',(request,response)=>{
+app.post('/api/persons',(request,response,next)=>{
     const body = request.body
     
     const errors= {
@@ -87,7 +87,7 @@ app.post('/api/persons',(request,response)=>{
     newPerson.save().then(person =>{
             response.json(person)
         })
-        .catch( err => response.status(404).json({error:err}).end)
+        .catch( error => next(error))
 })
 
 app.put('/api/persons/:id',(request,response,next)=>{
@@ -103,7 +103,7 @@ app.put('/api/persons/:id',(request,response,next)=>{
         target.name = body.name
         target.number = body.number
         target.save()
-        .then( data => response.send(data))
+        .then( data => response.send(data)).catch(error => next(error))
     })
     .catch(error => next(error))
 })
@@ -130,7 +130,9 @@ const errorHandler = (error, request, response, next) => {
 
   if (error.name === 'CastError') {
     return response.status(400).send({ error: 'malformatted id' })
-  } 
+  } else if(error.name === 'ValidationError'){
+    return response.status(400).send(error)
+  }
 
   next(error)
 }

@@ -1,6 +1,8 @@
 import axios from 'axios'
-
-const base_URL = '/api/persons'
+const isProd = import.meta.env.PROD
+const base_URL = isProd ? '/api/persons': 'http://localhost:3001/api/persons'
+console.log('isprod:')
+console.log(isProd)
 
 const getAll=()=>{
     return axios.get(base_URL)
@@ -9,7 +11,7 @@ const getAll=()=>{
 
 const createPerson = (newPerson) =>{
     return axios.post(base_URL,newPerson)
-    .then(response => response.data)
+
 }
 
 const deletePerson = (id) => {

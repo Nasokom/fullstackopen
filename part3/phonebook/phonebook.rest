@@ -25,11 +25,21 @@ DELETE http://localhost:3001/api/persons/6994501499e2a40e2743d990
 ###
 POST http://localhost:3001/api/persons HTTP/1.1
 content-type: application/json
-
 {
     "name":"Mike",
+    "number":"420-2232323"
+}
+
+###
+// Validation error
+POST http://localhost:3001/api/persons HTTP/1.1
+content-type: application/json
+
+{
+    "name":"No",
     "number":"4242424242"
 }
+
 
 
 ###
@@ -38,8 +48,20 @@ content-type: application/json
 
 {
     "name":"Mike",
-    "number":"42424242"
+    "number":"hgvgv"
 }
+
+
+###
+//PUT ERROR
+PUT  http://localhost:3001/api/persons/69947036532a6e0c23ced00c HTTP/1.1
+content-type: application/json
+
+{
+    "name":"Mq",
+    "number":"56-6565656wasdsdf"
+}
+
 
 ###
 GET http://localhost:3001/api/unknowroute

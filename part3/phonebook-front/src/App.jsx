@@ -16,7 +16,7 @@ const Notification = ({message,success})=>{
     }
 
   return (
-    <div className={`notification ${message.includes('server')? 'error' :'success'}`}>
+    <div className={`notification ${message.includes('server') || message.includes('failed')? 'error' :'success'}`}>
       {message}
     </div>
   )
@@ -44,7 +44,7 @@ const Persons = ({filteredPerson,handleDelete})=>{
           <tbody>
           {filteredPerson.map( person => {
             return(
-              <tr key={person.name}>
+              <tr key={person.id}>
                   <td>{person.name}</td>
                   <td>{person.number}</td>
                   <td>
@@ -125,18 +125,26 @@ const App = () => {
             handleNotification(`Changed ${response.name}'s number to ${response.number}` )
           })
           .catch( error => {
-            handleNotification(`Information of ${newPerson.name} has already been removed from server`)
-            console.log(error)
+            const errorType = error.response.data.name || undefined
+            if(errorType){
+              return handleNotification(error.response.data.message)
+            }
+            return handleNotification(`Information of ${newPerson.name} has already been removed from server`)
+
           })
       }
       return
     }
 
-    personServices.createPerson(newPerson).then((response)=>{
+    personServices.createPerson(newPerson)
+    .then((response)=>{
       setPersons(persons.concat(response))
-
       handleNotification(`Added ${response.name}` )
     })
+    .catch((error)=>{
+        return handleNotification(error.response.data.message)
+      })
+
   }
 
   const handleFilter= (event) =>{
