@@ -18,6 +18,16 @@ content-type: application/json
     "important" :true
 }
 
+
+###
+//Bad format 
+POST http://localhost:3001/api/notes/ HTTP/1.1
+content-type: application/json
+
+{
+    "content": "lol",
+    "important" :true
+}
 ###
 PUT http://localhost:3001/api/notes/6994836d77fdd0642ad725fa HTTP/1.1
 content-type: application/json
