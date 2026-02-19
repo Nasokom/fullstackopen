@@ -1,0 +1,35 @@
+import axios from 'axios'
+const isProd = import.meta.env.PROD
+const base_URL = isProd ? '/api/persons': 'http://localhost:3001/api/persons'
+console.log('isprod:')
+console.log(isProd)
+
+const getAll=()=>{
+    return axios.get(base_URL)
+    .then(response => response.data)
+}
+
+const createPerson = (newPerson) =>{
+    return axios.post(base_URL,newPerson)
+
+}
+
+const deletePerson = (id) => {
+    return axios.delete(`${base_URL}/${id}`)
+    .then(response =>{ 
+        console.log('You successfully delete '+response.data.name)
+        return response.data
+    })
+}
+
+const updatePerson = (person) => {
+    return axios.put(`${base_URL}/${person.id}`,person)
+    .then((response)=> {
+        console.log(response.data.name+' number has been update')
+        return response.data
+    })
+}
+
+export default {
+    getAll,deletePerson,createPerson, updatePerson
+}
