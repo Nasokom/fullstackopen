@@ -5,6 +5,7 @@ const supertest = require('supertest')
 const app = require('../app')
 const helper = require('./test_helper')
 const Note = require('../models/note')
+const User = require('../models/user')
 
 const api = supertest(app)
 
@@ -61,7 +62,17 @@ describe('when there is initially some notes saved', () => {
   })
 
   describe('addition of a new note', () => {
-    test('succeeds with valid data', async () => {
+
+    test('when invalid token => 401 && error msg', async ()=>{
+      
+      await api.post('/api/notes')
+      .send( await helper.newNote)
+      .set('Authorization','')
+      .expect(401)      
+
+    })
+
+    test('succeeds with valid token', async () => {
       const newNote = {
         content: 'async/await simplifies making async calls',
         important: true,
@@ -70,6 +81,7 @@ describe('when there is initially some notes saved', () => {
       await api
         .post('/api/notes')
         .send(newNote)
+        .set('Authorization',`Bearer ${await helper.getUserToken()}`)
         .expect(201)
         .expect('Content-Type', /application\/json/)
 
@@ -83,7 +95,10 @@ describe('when there is initially some notes saved', () => {
     test('fails with status code 400 if data invalid', async () => {
       const newNote = { important: true }
 
-      await api.post('/api/notes').send(newNote).expect(400)
+      await api.post('/api/notes')
+      .send(newNote)
+      .set('Authorization',`Bearer ${await helper.getUserToken()}`)
+      .expect(400)
 
       const notesAtEnd = await helper.notesInDb()
 
@@ -108,6 +123,4 @@ describe('when there is initially some notes saved', () => {
   })
 })
 
-after(async () => {
-  await mongoose.connection.close()
-})
+after(async ()=>await mongoose.connection.close())

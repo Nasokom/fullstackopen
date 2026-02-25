@@ -12,10 +12,12 @@ GET  http://localhost:3001/api/notes/SomeBadFormat
 ###
 POST http://localhost:3001/api/notes/ HTTP/1.1
 content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InJvb3QiLCJpZCI6IjY5OWRiODZmMzA1Mzg1MTZiMzQzMjRiYiIsImlhdCI6MTc3MjAxNzgxN30.qHeLmpD_XhrdH7pLAG_-3OuwJqtQ-ojKUH-6JS48SG8 
 
 {
-    "content": "Ensure that everything works",
-    "important" :true
+    "content": "Authorization token",
+    "important" :true,
+    "userId":"699db86f30538516b34324bb"
 }
 
 
