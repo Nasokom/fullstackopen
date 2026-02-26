@@ -1,0 +1,40 @@
+GET http://localhost:3003/api/blogs 
+
+###
+POST http://localhost:3003/api/blogs HTTP/1.1
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc2FzYXNrbG9qdWhqb3BvYXMiLCJpZCI6IjY5YTAyMjkwZDZhMWYzZjMxYTk3YzhiNyIsImlhdCI6MTc3MjEwOTI1NX0._ZpwpeCojbvpyPkrNW_lHfXgg2Y2rHPJraIc8uOGsZ8
+
+{
+  "author":"test",
+  "url": "test",
+  "title":"test user blog ",
+  "likes":56
+}
+
+###
+DELETE http://localhost:3003/api/blogs/69a0551a9d8b529d4907bffd
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc2FzYXNrbG9qdWhqb3BvYXMiLCJpZCI6IjY5YTAyMjkwZDZhMWYzZjMxYTk3YzhiNyIsImlhdCI6MTc3MjEwOTI1NX0._ZpwpeCojbvpyPkrNW_lHfXgg2Y2rHPJraIc8uOGsZ8
+
+###
+PUT  http://localhost:3003/api/blogs/6 HTTP/1.1
+content-type: application/json
+
+{
+  "author":"45688614",
+  "url": "646841",
+  "likes":55,
+  "id":54
+}
+
+POST  http://localhost:3003/api/users HTTP/1.1
+content-type: application/json
+Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc2FzYXNrbG9qdWhqb3BvYXMiLCJpZCI6IjY5YTAyMjkwZDZhMWYzZjMxYTk3YzhiNyIsImlhdCI6MTc3MjEwNTM0OH0.9FEkwGjhmzTYERyyaofvcxCaffDnpfdB7nga36boVww'
+
+{
+  "username":"45688614",
+  "url": "646841",
+  "likes":55,
+  "id":54
+}

@@ -1,5 +1,5 @@
 
-const {PORT} = require('./utils/config')
+const { PORT } = require('./utils/config')
 
 const app = require('./app')
 
