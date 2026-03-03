@@ -25,27 +25,27 @@ blogRouter.post('/', async (request, response) => {
   })
 
   const savedPost = await newPost.save()
-  const result = await savedPost.populate('user',{username:1,name:1})
+  const result = await savedPost.populate('user',{ username:1,name:1 })
 
-  
-  
+
+
   user.blogs.push(savedPost.id)
-  
+
   await user.save()
-  
+
 
   response.status(201).json(result)
 })
 
-blogRouter.get('/many', async (request,response)=>{
+blogRouter.get('/many', async (request,response) => {
   const blogs = [
-    {author:'John Doe', title:"this is a blog's title", likes:42, url:'http://react.com'},
-    {author:'Don Joe', title:"awesome post", likes:24, url:'http://react.com'},
-    {author:'the author', title:"thats a good post", likes:12, url:'http://react.com'},
+    { author:'John Doe', title:'this is a blog\'s title', likes:42, url:'http://react.com' },
+    { author:'Don Joe', title:'awesome post', likes:24, url:'http://react.com' },
+    { author:'the author', title:'thats a good post', likes:12, url:'http://react.com' },
   ]
 
   const result = await Blog.insertMany(blogs)
-   response.status(201).json(result)
+  response.status(201).json(result)
 })
 blogRouter.delete('/drop', async (request,response) => {
   await Blog.deleteMany({})
@@ -106,7 +106,7 @@ blogRouter.put('/:id', async (request,response) => {
     }
   }
   const preResult = await target.save()
-  const result = await  preResult.populate('user',{username:1,name:1})
+  const result = await  preResult.populate('user',{ username:1,name:1 })
   response.status(200).json(result)
 })
 
