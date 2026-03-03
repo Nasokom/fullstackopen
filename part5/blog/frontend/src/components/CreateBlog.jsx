@@ -6,7 +6,7 @@ const CreateBlog = ({handleCreate}) => {
     const [formData,setFormData] = useState({title:'',author:'',url:''})
 
   return (
-   <form onSubmit={handleCreate(formData,setFormData)} style={{display:'flex',flexDirection:'column',alignItems:'start'}}>
+   <form onSubmit={handleCreate(formData)} style={{display:'flex',flexDirection:'column',alignItems:'start'}}>
     <h2>Create new</h2>
         <label>
             title:

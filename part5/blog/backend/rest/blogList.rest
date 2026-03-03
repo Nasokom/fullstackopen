@@ -27,6 +27,7 @@ content-type: application/json
   "id":54
 }
 
+###
 POST  http://localhost:3003/api/users HTTP/1.1
 content-type: application/json
 Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc2FzYXNrbG9qdWhqb3BvYXMiLCJpZCI6IjY5YTAyMjkwZDZhMWYzZjMxYTk3YzhiNyIsImlhdCI6MTc3MjEwNTM0OH0.9FEkwGjhmzTYERyyaofvcxCaffDnpfdB7nga36boVww'
@@ -37,3 +38,12 @@ Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRl
   "likes":55,
   "id":54
 }
+
+
+###
+DELETE http://localhost:3003/api/blogs/drop HTTP/1.1
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im1pa2UiLCJpZCI6IjY5YTU2ZjQwNzhlNTIwYTM0MWVlNGRhNyIsImlhdCI6MTc3MjQ1MzY1MX0.VIgyBS1R3AxREupSyNugsgSvFxIJFzsE11lbUJexuog
+
+###
+GET http://localhost:3003/api/blogs/many HTTP/1.1

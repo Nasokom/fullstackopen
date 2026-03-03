@@ -6,6 +6,7 @@ blogRouter.get('/', async (request, response) => {
   response.json(blogs)
 })
 
+
 blogRouter.post('/', async (request, response) => {
   if(!request.body.title || !request.body.url){
     return response.status(400).send({ error:'Missing title || url properties' })
@@ -24,14 +25,32 @@ blogRouter.post('/', async (request, response) => {
   })
 
   const savedPost = await newPost.save()
+  const result = await savedPost.populate('user',{username:1,name:1})
 
-
+  
+  
   user.blogs.push(savedPost.id)
-
+  
   await user.save()
+  
 
+  response.status(201).json(result)
+})
 
-  response.status(201).json(savedPost)
+blogRouter.get('/many', async (request,response)=>{
+  const blogs = [
+    {author:'John Doe', title:"this is a blog's title", likes:42, url:'http://react.com'},
+    {author:'Don Joe', title:"awesome post", likes:24, url:'http://react.com'},
+    {author:'the author', title:"thats a good post", likes:12, url:'http://react.com'},
+  ]
+
+  const result = await Blog.insertMany(blogs)
+   response.status(201).json(result)
+})
+blogRouter.delete('/drop', async (request,response) => {
+  await Blog.deleteMany({})
+  response.status(204).send('DROP blog TABLE success').end()
+
 })
 
 blogRouter.delete('/:id', async (request,response) => {
@@ -61,26 +80,33 @@ blogRouter.delete('/:id', async (request,response) => {
 })
 
 
+
+
 blogRouter.put('/:id', async (request,response) => {
 
   const id = request.params.id
   const body = request.body
   delete body.id
 
+
+
   if(!body.url || !body.title || !body.author){
     return response.status(400).json({ error:'Bad Request missing properties' })
   }
 
-  //const result = await Blog.findByIdAndUpdate(id,body)
 
   const target = await Blog.findById(id)
   if(!target){
     return response.status(404).json({ error:`No blog post found with the id ${id}` })
   }
+
   for(const [key,val] of Object.entries(body)){
-    target[key] = val
+    if(key !== 'user'){
+      target[key] = val
+    }
   }
-  const result = await target.save()
+  const preResult = await target.save()
+  const result = await  preResult.populate('user',{username:1,name:1})
   response.status(200).json(result)
 })
 
