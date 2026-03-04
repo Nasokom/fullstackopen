@@ -1,12 +1,18 @@
-import React,{ useState } from 'react'
+import React,{ useState,useEffect } from 'react'
 
 
 const CreateBlog = ({ handleCreate }) => {
 
   const [formData,setFormData] = useState({ title:'',author:'',url:'' })
+  const handleSubmit = (event) => {
+    event.preventDefault()
+    handleCreate(formData)
+  }
+  useEffect(() => {},[])
+
 
   return (
-    <form onSubmit={handleCreate(formData)} style={{ display:'flex',flexDirection:'column',alignItems:'start' }}>
+    <form onSubmit={handleSubmit} style={{ display:'flex',flexDirection:'column',alignItems:'start' }}>
       <h2>Create new</h2>
       <label>
             title:
@@ -20,7 +26,7 @@ const CreateBlog = ({ handleCreate }) => {
             url
         <input name='url' value={formData.url} onChange={(e) => setFormData({ ...formData,url:e.target.value })}/>
       </label>
-      <input type="submit" value={'create'} />
+      <button type="submit">create</button>
     </form>
   )
 }

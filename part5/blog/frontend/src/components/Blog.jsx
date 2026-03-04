@@ -25,7 +25,7 @@ const Blog = ({ blog ,updatePost,remove }) => {
   }
 
   return (
-    <div style={blogStyle}>
+    <div style={blogStyle} className="blog">
       <div>
         {blog.title} {blog.author}
         <button onClick={() => setToggle(!toggle)}>{toggle?'hide':'view'}</button>

@@ -35,8 +35,8 @@ const App = () => {
     window.localStorage.clear()
   }
 
-  const handleCreate = (blogForm) =>  async(e) => {
-    e.preventDefault()
+  const handleCreate = async(blogForm) => {
+
     try{
       const response = await blogService.postBlog(blogForm,user.token)
       setBlogs([...blogs,response.data])
