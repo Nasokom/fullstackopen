@@ -26,7 +26,7 @@ const CreateBlog = ({ handleCreate }) => {
             url
         <input name='url' value={formData.url} onChange={(e) => setFormData({ ...formData,url:e.target.value })}/>
       </label>
-      <button type="submit">create</button>
+      <button type="submit" name='create'>create</button>
     </form>
   )
 }

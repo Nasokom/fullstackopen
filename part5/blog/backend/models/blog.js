@@ -19,7 +19,6 @@ blogSchema.set('toJSON',{
     delete returnedObject._id
     delete returnedObject.__v
   }
-
 })
 
 const Blog = mongoose.model('Blog', blogSchema)

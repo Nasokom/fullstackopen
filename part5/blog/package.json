@@ -1,0 +1,24 @@
+{
+  "name": "blog",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "npx playwright test --project chromium",
+    "test:report":"npx playwright show-report",
+    "test:debug":"npx playwright test --project chromium --debug",
+    "debug": "DEBUG=pw:api npx playwright test --project chromium",
+    "test:ui": "npx playwright test --ui --project chromium"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "@playwright/test": "^1.58.2",
+    "@types/node": "^25.3.5"
+  },
+  "dependencies": {
+    "axios": "^1.13.6"
+  }
+}

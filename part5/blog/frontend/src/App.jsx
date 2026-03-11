@@ -21,7 +21,7 @@ const App = () => {
       const { data } = await blogService.login({ username,password })
       setUser(data)
       blogService.saveUser(data)
-      setNotification('Welcome '+data.user)
+      setNotification('Welcome '+data.user.name)
       setPassword('')
       setUsername('')
     }
@@ -103,7 +103,7 @@ const App = () => {
         :
         <>
           <h2>blogs</h2>
-          <p>{user.username} is logged in <button onClick={handleLogout}>logout</button>
+          <p>{user.username} is logged in <button onClick={handleLogout} name='logout'>logout</button>
           </p>
           <Togglable buttonLabel={'create new blog'} ref={createFormRef}>
             <CreateBlog handleCreate={handleCreate}/>

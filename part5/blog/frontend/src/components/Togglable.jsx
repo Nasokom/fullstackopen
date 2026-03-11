@@ -15,12 +15,12 @@ const Togglable = (props) => {
       {
         !toggle ?
           <div>
-            <button onClick={handleToggle}>{props.buttonLabel || 'toggle'}</button>
+            <button onClick={handleToggle} name={props.buttonLabel}>{props.buttonLabel ||'toggle'}</button>
           </div>
           :
           <div>
             {props.children}
-            <button onClick={handleToggle}>{props.cancelLabel||'cancel'}</button>
+            <button onClick={handleToggle} name={props.cancelLabel}>{props.cancelLabel||'cancel'}</button>
           </div>
       }
     </div>
