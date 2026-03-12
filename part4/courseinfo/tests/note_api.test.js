@@ -64,7 +64,7 @@ describe('when there is initially some notes saved', () => {
   describe('addition of a new note', () => {
 
     test('when invalid token => 401 && error msg', async ()=>{
-      
+
       await api.post('/api/notes')
       .send( await helper.newNote)
       .set('Authorization','')
@@ -110,7 +110,7 @@ describe('when there is initially some notes saved', () => {
     test('succeeds with status code 204 if id is valid', async () => {
       const notesAtStart = await helper.notesInDb()
       const noteToDelete = notesAtStart[0]
-
+      
       await api.delete(`/api/notes/${noteToDelete.id}`).expect(204)
 
       const notesAtEnd = await helper.notesInDb()
