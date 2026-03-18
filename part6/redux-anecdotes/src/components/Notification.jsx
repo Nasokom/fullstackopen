@@ -1,4 +1,7 @@
+import { useSelector,useDispatch } from "react-redux"
+import { removeNotification } from "../reducers/notificationReducer"
 const Notification = () => {
+
   const style = {
     border: 'solid',
     padding: 10,
@@ -6,7 +9,19 @@ const Notification = () => {
     marginBottom: 10
   }
 
-  return <div style={style}>render here notification...</div>
+  const dispatch = useDispatch()
+  const notification = useSelector(({notification})=>notification)
+  const isNotification = notification.length > 0
+
+  setTimeout(() => dispatch(removeNotification()), 3000)
+
+  return(
+    <>
+      {isNotification && <div style={style}>{notification}</div>}
+    </>
+
+  ) 
+    
 }
 
 export default Notification

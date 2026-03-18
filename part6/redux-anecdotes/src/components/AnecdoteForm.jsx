@@ -1,4 +1,5 @@
 import {createAction} from '../reducers/anecdoteReducer'
+import { setNotification } from '../reducers/notificationReducer'
 import { useDispatch } from 'react-redux'
 
 const AnecdoteForm = () => {
@@ -9,6 +10,7 @@ const AnecdoteForm = () => {
     const content = event.target.content.value
     event.target.content.value = ''
     dispatch(createAction(content))
+    dispatch(setNotification(`'${content}' just added`))
   }
 
   return (
