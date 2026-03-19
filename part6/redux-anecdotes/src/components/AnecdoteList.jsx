@@ -4,7 +4,7 @@ import { setNotification} from "../reducers/notificationReducer"
 
 const AnecdoteList = () => {
     const dispatch = useDispatch()
-    const anecdotes = useSelector(({anecdotes,filter}) => anecdotes.filter(a => a.content.includes(filter)).sort((a,b)=>b.votes-a.votes))
+    const anecdotes = useSelector(({anecdotes,filter}) => anecdotes.filter(a => a.content && a.content.includes(filter)).sort((a,b)=>b.votes-a.votes))
     const vote = id => ()=>{
         dispatch(voteAction(id))
         dispatch(setNotification(`You voted '${anecdotes.find(a => a.id === id).content}'`))
