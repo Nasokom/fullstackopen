@@ -1,4 +1,4 @@
-const BASE_URL = "http://localhost:3001/anecdotes"
+const BASE_URL = "http://localhost:3001/anecdotes/"
 
 const getAll = async () => {
 
@@ -32,4 +32,19 @@ const saveAnecdote = async (content) =>{
     return data 
 }
 
-export default {getAll,saveAnecdote}
+const voteAnecdotes = async (id,votes)=>{
+    const options = {
+        method:'PATCH',
+        headers:{'Content-Type':'application.json'},
+        body:JSON.stringify({votes})
+    }
+    const response = await fetch(BASE_URL+id,options)
+    
+    if(!response.ok){
+        throw new Error("Failed to saved anecdote")
+    }
+    const data = await response.json()
+    return data 
+}
+
+export default {getAll,saveAnecdote,voteAnecdotes}

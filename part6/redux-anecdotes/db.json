@@ -1,49 +1,48 @@
 {
   "anecdotes": [
     {
-      "content": "If it hurts, do it more often",
-      "id": "47145",
-      "votes": 0
+      "votes": 1,
+      "id": "47145"
     },
     {
-      "content": "Adding manpower to a late software project makes it later!",
-      "id": "21149",
-      "votes": 0
+      "votes": 1,
+      "id": "21149"
     },
     {
       "content": "The first 90 percent of the code accounts for the first 10 percent of the development time...The remaining 10 percent of the code accounts for the other 90 percent of the development time.",
       "id": "69581",
-      "votes": 0
+      "votes": 13
     },
     {
       "content": "Any fool can write code that a computer can understand. Good programmers write code that humans can understand.",
       "id": "36975",
-      "votes": 0
+      "votes": 5
     },
     {
       "content": "Premature optimization is the root of all evil.",
       "id": "25170",
-      "votes": 0
+      "votes": 7
     },
     {
       "content": "Debugging is twice as hard as writing the code in the first place. Therefore, if you write the code as cleverly as possible, you are, by definition, not smart enough to debug it.",
       "id": "98312",
-      "votes": 0
+      "votes": 7
     },
     {
       "id": "2f90",
       "content": "sfsdf",
-      "important": false
+      "important": false,
+      "votes": null
     },
     {
       "id": "082b",
       "content": "asdasd",
-      "votes": 0
+      "votes": 1
     },
     {
       "id": "23ea",
       "content": "aaaaaaaa",
-      "votes": 0
+      "votes": 2
     },
     {
       "id": "61e3",
@@ -58,7 +57,7 @@
     {
       "id": "628e",
       "content": "ssfsdfsdfdsfsfsdfsdf",
-      "votes": 0
+      "votes": 3
     },
     {
       "id": "974b",
@@ -73,11 +72,36 @@
     {
       "id": "a0e3",
       "content": "sdfsdfsdfsdfsdfsdfsdfsdfdsfdsfs",
-      "votes": 0
+      "votes": 19
     },
     {
       "id": "c202",
       "content": "testasfsd",
+      "votes": 0
+    },
+    {
+      "id": "af92",
+      "content": "asdasd",
+      "votes": 0
+    },
+    {
+      "id": "0220",
+      "content": "fffffff",
+      "votes": 0
+    },
+    {
+      "id": "e30b",
+      "content": "sssddsdsdsdsds",
+      "votes": 1
+    },
+    {
+      "id": "47a6",
+      "content": "sdfsdfdsf",
+      "votes": 0
+    },
+    {
+      "id": "8281",
+      "content": "create",
       "votes": 0
     }
   ],

@@ -1,5 +1,4 @@
 import { useSelector,useDispatch } from "react-redux"
-import { removeNotification } from "../reducers/notificationReducer"
 const Notification = () => {
 
   const style = {
@@ -9,11 +8,8 @@ const Notification = () => {
     marginBottom: 10
   }
 
-  const dispatch = useDispatch()
   const notification = useSelector(({notification})=>notification)
   const isNotification = notification.length > 0
-
-  setTimeout(() => dispatch(removeNotification()), 3000)
 
   return(
     <>
