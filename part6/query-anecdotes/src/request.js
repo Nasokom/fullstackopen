@@ -23,7 +23,8 @@ const newData = {content,votes:0}
     const response = await fetch(base_url,options)
 
     if(!response.ok){
-        throw new Error('Probleme during creation')
+            const {error} = await response.json()
+        throw new Error(error) 
     }   
     return await response.json()
 
