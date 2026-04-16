@@ -101,33 +101,33 @@ let books = [
 const typeDefs = /* GraphQL */`
 
 type Book{
-    title:String,!
-    published:Int,!
-    author:String,!
-    id:String,
+    title:String!
+    published:Int!
+    author:String!
+    id:String
     genres:[String]!
 }
 
 type Author{
-    name:String,!
-    id:String,!
-    born:Int,
+    name:String!
+    id:String!
+    born:Int
     bookCount:Int
 }
 
 
   type Query {
-    bookCount: Int!,
-    authorCount:Int!,
+    bookCount: Int!
+    authorCount:Int!
     allBooks(author:String,genre:String):[Book!]!
     allAuthor:[Author!]!
   }
 
   type Mutation{
     addBook(
-    title:String!,
-    published:Int!,
-    author:String!,
+    title:String!
+    published:Int!
+    author:String!
     genres:[String]!):Book
 
     editAuthor(name:String,setBornTo:Int):Author
@@ -140,12 +140,12 @@ const resolvers = {
     bookCount: () => books.length,
     authorCount: ()=>authors.length,
     allBooks:(root,args) =>{
-        const genre = args.genre || ''
+        const genre = args.genre 
         const author = args.author || ''
 
         return books
         .filter(a =>a.author.includes(author))
-        .filter(a=>a.genres.includes(genre))
+        .filter(a=> genre ? a.genres.includes(genre): true)
     },
     allAuthor:()=>authors
   },
@@ -166,8 +166,9 @@ const resolvers = {
         if(!authors.find(a=>a.name === args.name)){
             return null
         }
+
         authors = authors.map(a => a.name === args.name ? {...a,born:args.setBornTo}:a)
-        return {name:args.name,born:args.setBornTo}
+        return authors.find(a=>a.name === args.name)
      }
   }
 }
