@@ -11,6 +11,9 @@
     "dev": "node --watch index.js"
   },
   "dependencies": {
-    "@apollo/server": "^5.5.0"
+    "@apollo/server": "^5.5.0",
+    "dotenv": "^17.4.2",
+    "jsonwebtoken": "^9.0.3",
+    "mongoose": "^9.4.1"
   }
 }
