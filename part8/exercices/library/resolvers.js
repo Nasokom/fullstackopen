@@ -27,7 +27,10 @@ const resolvers = {
     allAuthor:async ()=> {
       return await Author.find({})
     },
-    me:async(root,args,{currentUser})=>currentUser
+    me:async(root,args,context)=> {
+      console.log( context)
+      return context.currentUser
+    }
   },
 
   Author:{
@@ -69,7 +72,9 @@ const resolvers = {
 
     },
 
-     editAuthor: async (root,args,{currentUser})=>{
+     editAuthor: async (root,args,context)=>{
+      console.log(context)
+      const {currentUser} = context
 
           if (!currentUser) {
       throw new GraphQLError('not authenticated', {
@@ -90,6 +95,7 @@ const resolvers = {
       return await newUser.save()
     },
     login:async (root,{username,password},context)=>{
+      console.log(username,password)
 
       const user = await User.findOne({username})
       
@@ -104,13 +110,13 @@ const resolvers = {
     const userForToken = {
       username: user.username,
       id: user._id,
+      favoriteGenre:user.favoriteGenre
     }
 
     const jwt = jsonwebtoken.sign(userForToken,process.env.JWT_SECRET)
 
     context.currentUser = jwt
-    
-    return {value: jwt}
+    return {value:jwt}
 
     }
   }
