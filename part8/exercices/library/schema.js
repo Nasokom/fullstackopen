@@ -32,6 +32,7 @@ type Token {
     allBooks(author:String,genre:String):[Book!]!
     allAuthor:[Author!]!
     me:User
+    allGenres:[String!]!
   }
 
   type Mutation{
@@ -52,6 +53,11 @@ type Token {
       username: String!
       password: String!
     ): Token
+  }
+type Subscription{
+    bookAdded:Book!
+    fls:Book!
+    test:String
   }
 
 `

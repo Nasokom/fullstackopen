@@ -9,7 +9,12 @@ const authorSchema = new mongoose.Schema({
   },
     born:{
         type:Number,
-    }
+    },
+    books:[
+    {
+        type:mongoose.Schema.Types.ObjectId,
+        ref:'Books'
+    }]
 })
 
 const Author = mongoose.model('Author',authorSchema)

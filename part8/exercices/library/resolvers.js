@@ -2,18 +2,22 @@ const User = require('./models/user')
 const Author = require('./models/author')
 const Book = require('./models/Book')
 const jsonwebtoken = require('jsonwebtoken')
-const { GraphQLError, createSourceEventStream } = require('graphql')
+const { GraphQLError, createSourceEventStream, subscribe } = require('graphql')
+const { PubSub } = require('graphql-subscriptions')
+const mongoose = require('mongoose')
+const pubsub = new PubSub()
 
 const resolvers = {
   Query: {
-    bookCount: async () => await Book.collection.countDocuments(),
+    bookCount: async () => {
+      return await Book.collection.countDocuments()
+    },
     authorCount: async ()=> await Author.collection.countDocuments(),
     allBooks:async (root,args) =>{
-
         const regexVar = (testString) =>  new RegExp(testString,'i')
         const genres = args.genre ? regexVar(args.genre) : regexVar('')
         const author = args.author || null
-
+        console.log(genres)
         if(!author){
             return await Book.find({genres})
         }
@@ -22,6 +26,19 @@ const resolvers = {
         author,
         genres
       })
+
+    },
+    allGenres:async()=> {
+  const books =  await Book.find({})
+
+  const genres = await books.flatMap(a=>a.genres).reduce((arr,elt,i)=>{
+      if(!arr.includes(elt)){
+        arr.push(elt)
+    }
+    return arr
+  },[])
+
+    return genres
 
     },
     allAuthor:async ()=> {
@@ -34,7 +51,8 @@ const resolvers = {
   },
 
   Author:{
-    bookCount:async ({_id})=> await Book.find({author:_id}).countDocuments()
+    bookCount:async ({books})=> books.length
+      //await Book.find({author:_id}).countDocuments()
   },
 
   Book:{
@@ -49,27 +67,33 @@ const resolvers = {
       })
     }
 
+        const newBookID = new mongoose.Types.ObjectId()
+
         let author = await Author.findOne({name:args.author})
-        console.log(author)
 
         if(!author){
           author = new Author({name:args.author})
-          await author.save()
         }
+
+        console.log(author)
+        author.books.push(newBookID)
+        console.log(author)
+        await author.save()
+        const newBook = new Book({...args,author:author._id,_id:newBookID})
+
         try{
-
-          const newBook = new Book({...args,author:author._id})
-          return await newBook.save()
+          await newBook.save()
         }catch(error){
-        throw new GraphQLError(`Saving person failed: ${error.message}`,{
-          extensions:{
-            code:'BAD_USER_INPUT',
-            invalidArgs:args.name,
-            error
-          }
-        })
-      }
-
+          throw new GraphQLError(`Saving person failed: ${error.message}`,{
+            extensions:{
+              code:'BAD_USER_INPUT',
+              invalidArgs:args.name,
+              error
+            }
+          })
+        }
+       pubsub.publish('BOOK_ADDED', { bookAdded: newBook })
+        return newBook
     },
 
      editAuthor: async (root,args,context)=>{
@@ -118,6 +142,14 @@ const resolvers = {
     context.currentUser = jwt
     return {value:jwt}
 
+    }
+  },
+  Subscription:{
+    bookAdded :{
+      subscribe: ()=> pubsub.asyncIterableIterator('BOOK_ADDED')
+    },
+    test:{
+      subscribe: ()=> pubsub.asyncIterableIterator('test')
     }
   }
 }
