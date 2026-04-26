@@ -1,0 +1,51 @@
+.appleList {
+  position: absolute;
+  background-color: white;
+  padding: 5px;
+  border: 2px solid black;
+  z-index: 1;
+}
+
+.appleList-container {
+  border: 3px solid black;
+  display: flex;
+  padding: 20px;
+  gap: 20px;
+  width: clamp(500px, 50vw, fit-content);
+  height: clamp(300px, 40vh, 700px);
+}
+
+.appleList-list {
+  padding: 5px 15px;
+  border: 1px solid black;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  overflow: -moz-scrollbars-vertical;
+  overflow-y: scroll;
+  scrollbar-width: 10px;
+  overflow-y: scroll;
+  width: 40vw;
+}
+.appleList-list p {
+}
+
+.appleList-btns {
+  padding: 0px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 10px;
+  padding: clamp(10px, 2vh, 30px) 0;
+}
+
+.appleList-extra {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  align-items: center;
+  border-left: 2px dotted black;
+  gap: 10px;
+  padding: clamp(10px, 2vh, 30px) 0;
+  padding-left: 20px;
+}

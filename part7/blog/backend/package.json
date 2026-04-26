@@ -1,0 +1,29 @@
+{
+  "name": "blog",
+  "version": "1.0.0",
+  "description": "FullStack open execices",
+  "main": "index.js",
+  "scripts": {
+    "start": "NODE_ENV=production node index.js",
+    "start:test": "NODE_ENV=test node index.js",
+    "dev": "NODE_ENV=development node --watch index.js",
+    "test": "NODE_ENV=test node --test --test-concurrency=1",
+    "lint": "eslint ."
+  },
+  "author": "Mikael Nasoa Kombia",
+  "license": "MIT",
+  "dependencies": {
+    "bcrypt": "^6.0.0",
+    "dotenv": "^17.3.1",
+    "express": "^5.2.1",
+    "jsonwebtoken": "^9.0.3",
+    "mongoose": "^9.2.1"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@stylistic/eslint-plugin": "^5.9.0",
+    "eslint": "^10.0.1",
+    "globals": "^17.3.0",
+    "supertest": "^7.2.2"
+  }
+}
