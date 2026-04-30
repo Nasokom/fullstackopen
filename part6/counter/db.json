@@ -1,0 +1,45 @@
+{
+  "notes": [
+    {
+      "content": "the app state is in redux store",
+      "important": true,
+      "id": "1"
+    },
+    {
+      "content": "state changes are made with actions",
+      "important": false,
+      "id": "2"
+    },
+    {
+      "id": "b100",
+      "content": "sdfsdfsdf",
+      "important": false
+    },
+    {
+      "id": "4408",
+      "content": "sdfsdfsdf",
+      "important": false
+    },
+    {
+      "id": "6b74",
+      "content": "sdfsdfsdfsdfsdf",
+      "important": false
+    },
+    {
+      "id": "529a",
+      "content": "asdasd",
+      "important": false
+    },
+    {
+      "id": "8243",
+      "content": "sdfsdfsdf",
+      "important": false
+    },
+    {
+      "id": "242b",
+      "content": "creaye sdfsfsdf",
+      "important": false
+    }
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
+}
